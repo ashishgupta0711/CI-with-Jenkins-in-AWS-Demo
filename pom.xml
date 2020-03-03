@@ -16,7 +16,7 @@
         <maven.compiler.source>1.6</maven.compiler.source>
         <maven.compiler.target>1.6</maven.compiler.target>
     </properties>
-   <!-- Comment added to check git jenkis webhook for k8 cluster deployment -->
+   <!-- Comment added to check git jenkis webhook for k8 cluster auto deployment -->
    <dependencies>
         <dependency>
             <groupId>junit</groupId>
