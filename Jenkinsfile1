@@ -6,6 +6,9 @@ pipeline {
         LOCATION = 'europe-west1-b'
         CREDENTIALS_ID = 'kubernetes'
     }
+    tools {
+      maven 'M3'
+    }    
     stages {
         stage("Checkout code") {
             steps {
