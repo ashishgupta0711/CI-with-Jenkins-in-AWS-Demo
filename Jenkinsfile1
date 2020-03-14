@@ -15,22 +15,22 @@ pipeline {
                 checkout scm
             }
         }
-		 stage("Build") {
+        stage("Build") {
             steps {
                echo "cleaning and packaging"
-			   sh 'mvn clean package'
+               sh 'mvn clean package'
             }
         }
-		 stage("Test") {
+         stage("Test") {
             steps {
                 echo "Testing"
-			   sh 'mvn test'
+                sh 'mvn test'
             }
         }
         stage('Initialize Docker') {
             def dockerHome = tool 'docker'
             env.PATH = "${dockerHome}/bin:${env.PATH}"
-        }	
+        }
         stage("Build image") {
             steps {
                 script {
