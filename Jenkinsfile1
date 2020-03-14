@@ -1,0 +1,44 @@
+pipeline {
+    agent any
+    environment {
+        PROJECT_ID = 'devops-ashish'
+        CLUSTER_NAME = 'kube-cluster-superleague'
+        LOCATION = 'europe-west1-b'
+        CREDENTIALS_ID = 'kubernetes'
+    }
+    stages {
+        stage("Checkout code") {
+            steps {
+                checkout scm
+            }
+        }
+		 stage("Build") {
+            steps {
+               echo "cleaning and packaging"
+			   sh 'mvn clean package'
+            }
+        }
+		 stage("Test") {
+            steps {
+                echo "Testing"
+			   sh 'mvn test'
+            }
+        }
+        stage("Build image") {
+            steps {
+                script {
+                    myapp = docker.build("ashishgupta0711/dockerplay:${env.BUILD_ID}")
+                }
+            }
+        }
+        stage("Push image") {
+            steps {
+                script {
+                    docker.withRegistry('https://registry.hub.docker.com', 'docker-hub') {
+                            myapp.push("${env.BUILD_ID}")
+                    }
+                }
+            }
+        }        
+    }    
+}
